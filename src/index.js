@@ -24,13 +24,17 @@ app.set("view engine", "hbs");
 app.set("views", viewsPath);
 hbs.registerPartials(partials);
 
-let count = 0;
 io.on("connection", (socket) => {
-  console.log("New connnection innitialize");
-  socket.emit("countUpdated", count);
-  socket.on("increament", () => {
-    count++;
-    io.emit("countUpdated", count);
+  // console.log("New connnection innitialize");
+  socket.broadcast.emit("message", "A new user has joined!");
+  socket.on("sendLocation", (coords) => {
+    io.emit("message", `Location: ${coords.latitude}, ${coords.longitude}`);
+  });
+  socket.on("sendMessage", (message) => {
+    io.emit("message", message);
+  });
+  socket.on("disconnect", () => {
+    io.emit("message", "A user just left the chat");
   });
 });
 
