@@ -27,11 +27,16 @@ hbs.registerPartials(partials);
 io.on("connection", (socket) => {
   // console.log("New connnection innitialize");
   socket.broadcast.emit("message", "A new user has joined!");
-  socket.on("sendLocation", (coords) => {
-    io.emit("message", `Location: ${coords.latitude}, ${coords.longitude}`);
+  socket.on("sendLocation", (coords, callback) => {
+    io.emit(
+      "message",
+      `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
+    );
+    callback();
   });
-  socket.on("sendMessage", (message) => {
+  socket.on("sendMessage", (message, callback) => {
     io.emit("message", message);
+    callback("Delivered");
   });
   socket.on("disconnect", () => {
     io.emit("message", "A user just left the chat");
