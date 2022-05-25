@@ -20,9 +20,9 @@ app.use(express.json());
 
 app.use(express.static(publicDir));
 
-app.set("view engine", "hbs");
-app.set("views", viewsPath);
-hbs.registerPartials(partials);
+// app.set("view engine", "hbs");
+// app.set("views", viewsPath);
+// hbs.registerPartials(partials);
 
 io.on("connection", (socket) => {
   // console.log("New connnection innitialize");

@@ -1,9 +1,15 @@
 const socket = io();
 const msgForm = document.getElementById("msgForm");
 const locGet = document.getElementById("loc");
+const $messages = document.querySelector("#messages");
+
+// Templates
+const msgTmp = document.querySelector("msgTmp".innerHTML);
 
 socket.on("message", (msg) => {
   console.log(msg);
+  const html = Mustache.render(msgTmp);
+  $messages.insertAdjacentElement("beforeend", html);
 });
 
 msgForm.addEventListener("submit", (e) => {
