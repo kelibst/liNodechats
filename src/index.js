@@ -16,7 +16,7 @@ const viewsPath = path.join(__dirname, "./public/assets/views");
 const partials = path.join(__dirname, "./public/assets/partials");
 
 app.use(cors());
-app.use(express.json());
+// app.use(express.json());
 
 app.use(express.static(publicDir));
 

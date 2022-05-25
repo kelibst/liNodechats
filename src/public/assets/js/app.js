@@ -4,12 +4,14 @@ const locGet = document.getElementById("loc");
 const $messages = document.querySelector("#messages");
 
 // Templates
-const msgTmp = document.querySelector("msgTmp".innerHTML);
-
+const msgTmp = document.querySelector("#msgTmp").innerHTML;
+console.log(msgTmp);
 socket.on("message", (msg) => {
   console.log(msg);
-  const html = Mustache.render(msgTmp);
-  $messages.insertAdjacentElement("beforeend", html);
+  const html = Mustache.render(msgTmp, {
+    message: msg,
+  });
+  $messages.insertAdjacentHTML("beforeend", html);
 });
 
 msgForm.addEventListener("submit", (e) => {
