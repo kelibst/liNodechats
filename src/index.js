@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
   socket.broadcast.emit("message", "A new user has joined!");
   socket.on("sendLocation", (coords, callback) => {
     io.emit(
-      "message",
+      "locationMsg",
       `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
     );
     callback();
@@ -38,6 +38,7 @@ io.on("connection", (socket) => {
     io.emit("message", message);
     callback("Delivered");
   });
+
   socket.on("disconnect", () => {
     io.emit("message", "A user just left the chat");
   });

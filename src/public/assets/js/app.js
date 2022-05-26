@@ -5,9 +5,16 @@ const $messages = document.querySelector("#messages");
 
 // Templates
 const msgTmp = document.querySelector("#msgTmp").innerHTML;
-console.log(msgTmp);
+const locTmp = document.querySelector("#locTmp").innerHTML;
+
+socket.on("locationMsg", (url) => {
+  const html = Mustache.render(locTmp, {
+    url: url,
+  });
+  $messages.insertAdjacentHTML("beforeend", html);
+});
+
 socket.on("message", (msg) => {
-  console.log(msg);
   const html = Mustache.render(msgTmp, {
     message: msg,
   });
