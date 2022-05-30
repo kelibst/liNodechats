@@ -4,8 +4,7 @@ const http = require("http");
 const cors = require("cors");
 const hbs = require("hbs");
 const socketio = require("socket.io");
-const { SocketAddress } = require("net");
-
+const { generateMsg } = require("./utils/message");
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -25,8 +24,7 @@ app.use(express.static(publicDir));
 // hbs.registerPartials(partials);
 
 io.on("connection", (socket) => {
-  // console.log("New connnection innitialize");
-  socket.broadcast.emit("message", "A new user has joined!");
+  socket.broadcast.emit("message", generateMsg("A new user has joined!"));
   socket.on("sendLocation", (coords, callback) => {
     io.emit(
       "locationMsg",
@@ -35,12 +33,12 @@ io.on("connection", (socket) => {
     callback();
   });
   socket.on("sendMessage", (message, callback) => {
-    io.emit("message", message);
+    io.emit("message", generateMsg(message));
     callback("Delivered");
   });
 
   socket.on("disconnect", () => {
-    io.emit("message", "A user just left the chat");
+    io.emit("message", generateMsg("A user just left the chat"));
   });
 });
 
