@@ -7,9 +7,11 @@ const $messages = document.querySelector("#messages");
 const msgTmp = document.querySelector("#msgTmp").innerHTML;
 const locTmp = document.querySelector("#locTmp").innerHTML;
 
-socket.on("locationMsg", (url) => {
+socket.on("locationMsg", (data) => {
+  const url = `https://google.com/maps?q=${data.cordinate.latitude},${data.cordinate.longitude}`;
   const html = Mustache.render(locTmp, {
     url: url,
+    createdAt: moment(data.createdAt).format("hh:mm a"),
   });
   $messages.insertAdjacentHTML("beforeend", html);
 });

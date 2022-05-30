@@ -4,7 +4,7 @@ const http = require("http");
 const cors = require("cors");
 const hbs = require("hbs");
 const socketio = require("socket.io");
-const { generateMsg } = require("./utils/message");
+const { generateMsg, generateLoc } = require("./utils/message");
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -25,11 +25,8 @@ app.use(express.static(publicDir));
 
 io.on("connection", (socket) => {
   socket.broadcast.emit("message", generateMsg("A new user has joined!"));
-  socket.on("sendLocation", (coords, callback) => {
-    io.emit(
-      "locationMsg",
-      `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
-    );
+  socket.on("sendLocation", (data, callback) => {
+    io.emit("locationMsg", generateLoc(data));
     callback();
   });
   socket.on("sendMessage", (message, callback) => {

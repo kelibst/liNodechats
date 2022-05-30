@@ -6,6 +6,15 @@ const generateMsg = (txt) => {
   };
 };
 
+const generateLoc = (cordinate) => {
+  const date = new Date().getTime();
+  return {
+    cordinate,
+    createdAt: date,
+  };
+};
+
 module.exports = {
   generateMsg,
+  generateLoc,
 };
