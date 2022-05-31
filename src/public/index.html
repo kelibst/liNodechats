@@ -7,31 +7,25 @@
     <title>Node Real Time Chat Application</title>
   </head>
   <body>
-    <div id="messages"></div>
+    <div class="join">
+      <form action="/chat.html" class="joinform">
+        <input
+          type="text"
+          name="chatname"
+          required
+          placeholder="Enter you chat name"
+        />
 
-    <div class="formContainer">
-      <form id="msgForm" action="#">
-        <input type="text" id="msg" placeholder="enter your message here" />
-        <button type="submit">submit</button>
+        <input
+          type="text"
+          name="chatroom"
+          required
+          placeholder="Enter chat room name"
+        />
+
+        <button type="submit">Join</button>
       </form>
-      <button id="loc">Send Location</button>
     </div>
-
-    <script id="msgTmp" type="text/html">
-      <div>
-        <p>{{createdAt}}--{{message}}</p>
-      </div>
-    </script>
-
-    <script id="locTmp" type="text/html">
-      <div>
-        <p>
-          <a href="{{url}}" target="_blank" rel="noopener noreferrer"
-            >{{createdAt}}: Location</a
-          >
-        </p>
-      </div>
-    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.3/qs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>

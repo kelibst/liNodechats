@@ -25,6 +25,7 @@ app.use(express.static(publicDir));
 
 io.on("connection", (socket) => {
   socket.broadcast.emit("message", generateMsg("A new user has joined!"));
+  io.emit("message", generateMsg("Welcome"));
   socket.on("sendLocation", (data, callback) => {
     io.emit("locationMsg", generateLoc(data));
     callback();

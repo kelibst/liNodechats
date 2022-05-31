@@ -1,5 +1,55 @@
-html {
+* {
     padding: 0%;
     margin: 0;
-    background-color: rgb(255, 255, 255);
+}
+
+.left {
+    min-width: 20%;
+}
+
+.content {
+    display: flex;
+    min-height: 100vh;
+    margin: 1rem;
+}
+
+div#messages {
+    border: 1px solid hsl(240deg 7% 62%);
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.msgCont, .locCont {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+input {
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+input:focus {
+    outline: 1px solid rgb(28, 0, 155);
+}
+
+.formContainer {
+    display: flex;
+}
+
+button {
+    background-color: rgb(28, 0, 155);
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: blue;
 }
