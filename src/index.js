@@ -24,8 +24,14 @@ app.use(express.static(publicDir));
 // hbs.registerPartials(partials);
 
 io.on("connection", (socket) => {
-  socket.broadcast.emit("message", generateMsg("A new user has joined!"));
-  io.emit("message", generateMsg("Welcome"));
+  socket.on("join", ({ chatname, chatroom }) => {
+    socket.join(chatroom);
+    socket.broadcast
+      .to(chatroom)
+      .emit("message", generateMsg(`${chatname} has joined!`));
+    io.emit("message", generateMsg("Welcome"));
+  });
+
   socket.on("sendLocation", (data, callback) => {
     io.emit("locationMsg", generateLoc(data));
     callback();

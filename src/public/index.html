@@ -7,24 +7,28 @@
     <title>Node Real Time Chat Application</title>
   </head>
   <body>
-    <div class="join">
-      <form action="/chat.html" class="joinform">
-        <input
-          type="text"
-          name="chatname"
-          required
-          placeholder="Enter you chat name"
-        />
+    <div class="joinCont">
+      <div class="left"></div>
 
-        <input
-          type="text"
-          name="chatroom"
-          required
-          placeholder="Enter chat room name"
-        />
+      <div class="join">
+        <form action="/chat.html" class="joinform">
+          <input
+            type="text"
+            name="chatname"
+            required
+            placeholder="Enter you chat name"
+          />
 
-        <button type="submit">Join</button>
-      </form>
+          <input
+            type="text"
+            name="chatroom"
+            required
+            placeholder="Enter chat room name"
+          />
+
+          <button class="joinBtn" type="submit">Join</button>
+        </form>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.3/qs.min.js"></script>

@@ -7,6 +7,10 @@ const $messages = document.querySelector("#messages");
 const msgTmp = document.querySelector("#msgTmp").innerHTML;
 const locTmp = document.querySelector("#locTmp").innerHTML;
 
+const { chatname, chatroom } = Qs.parse(location.search, {
+  ignoreQueryPrefix: true,
+});
+
 socket.on("locationMsg", (data) => {
   const url = `https://google.com/maps?q=${data.cordinate.latitude},${data.cordinate.longitude}`;
   const html = Mustache.render(locTmp, {
@@ -55,3 +59,5 @@ locGet.addEventListener("click", () => {
     );
   });
 });
+
+socket.emit("join", { chatname, chatroom });
