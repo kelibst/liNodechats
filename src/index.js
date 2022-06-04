@@ -5,6 +5,7 @@ const cors = require("cors");
 const hbs = require("hbs");
 const socketio = require("socket.io");
 const { generateMsg, generateLoc } = require("./utils/message");
+const { addUser, removeUser } = require("./utils/users");
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -24,11 +25,21 @@ app.use(express.static(publicDir));
 // hbs.registerPartials(partials);
 
 io.on("connection", (socket) => {
-  socket.on("join", ({ chatname, chatroom }) => {
-    socket.join(chatroom);
+  socket.on("join", ({ chatname, chatroom }, callback) => {
+    const { error, user } = addUser({
+      id: socket.id,
+      username: chatname,
+      room: chatroom,
+    });
+
+    if (error) {
+      return callback(error);
+    }
+
+    socket.join(user.room);
     socket.broadcast
-      .to(chatroom)
-      .emit("message", generateMsg(`${chatname} has joined!`));
+      .to(user.room)
+      .emit("message", generateMsg(`${user.username} has joined!`));
     io.emit("message", generateMsg("Welcome"));
   });
 
@@ -42,7 +53,14 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    io.emit("message", generateMsg("A user just left the chat"));
+    const user = removeUser(socket.id);
+
+    if (user) {
+      io.to(user.room).emit(
+        "message",
+        generateMsg(user.username + " just left the chat")
+      );
+    }
   });
 });
 

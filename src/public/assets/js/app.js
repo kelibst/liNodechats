@@ -60,4 +60,7 @@ locGet.addEventListener("click", () => {
   });
 });
 
-socket.emit("join", { chatname, chatroom });
+socket.emit("join", { chatname, chatroom }, (error) => {
+  alert(error);
+  location.href = "/";
+});
