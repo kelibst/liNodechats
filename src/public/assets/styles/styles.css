@@ -24,6 +24,7 @@ div#messages {
     border-bottom: 1px solid lightgray;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 input {
@@ -64,7 +65,7 @@ button:hover {
 form.joinform {
     display: flex;
     min-width: 100%;
-    min-height: 100%;
+    min-height: 100vh;
     justify-content: center;
     flex-direction: column;
     align-items: center;
@@ -72,4 +73,13 @@ form.joinform {
 
 input#msg {
     margin-bottom: 0;
+}
+
+.username {
+    font-size: 14px;
+    font-family: sans;
+    margin-bottom: 10px;
+    color: #202020;
+    float: right;
+    text-decoration: underline;
 }

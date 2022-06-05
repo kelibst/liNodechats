@@ -50,7 +50,7 @@ io.on("connection", (socket) => {
   });
   socket.on("sendMessage", (message, callback) => {
     const user = getUser(socket.id);
-    io.to(user.room).emit("message", generateMsg(user.username, message));
+    io.to(user.room).emit("message", generateMsg(message, user.username));
     callback("Delivered");
   });
 

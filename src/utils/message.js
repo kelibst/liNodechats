@@ -1,4 +1,4 @@
-const generateMsg = (username, txt) => {
+const generateMsg = (txt, username = "Admin") => {
   const date = new Date().getTime();
   return {
     username,
@@ -7,7 +7,7 @@ const generateMsg = (username, txt) => {
   };
 };
 
-const generateLoc = (username = "Admin", cordinate) => {
+const generateLoc = (username, cordinate) => {
   const date = new Date().getTime();
   return {
     username,
