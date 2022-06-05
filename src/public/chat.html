@@ -22,15 +22,21 @@
 
         <script id="msgTmp" type="text/html">
           <div class="msgCont">
-            <p>{{createdAt}}--{{message}}</p>
+            <p class="username">
+              {{username}}: <span class="createdAt">{{createdAt}}: </span>
+            </p>
+            <p>{{message}}</p>
           </div>
         </script>
 
         <script id="locTmp" type="text/html">
           <div class="locCont">
+            <p class="username">
+              {{username}}: <span class="createdAt">{{createdAt}}: </span>
+            </p>
             <p>
               <a href="{{url}}" target="_blank" rel="noopener noreferrer"
-                >{{createdAt}}: Location</a
+                >Location</a
               >
             </p>
           </div>

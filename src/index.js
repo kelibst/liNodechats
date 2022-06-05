@@ -45,12 +45,12 @@ io.on("connection", (socket) => {
 
   socket.on("sendLocation", (data, callback) => {
     const user = getUser(socket.id);
-    io.to(user.room).emit("locationMsg", generateLoc(data));
+    io.to(user.room).emit("locationMsg", generateLoc(user.username, data));
     callback();
   });
   socket.on("sendMessage", (message, callback) => {
     const user = getUser(socket.id);
-    io.to(user.room).emit("message", generateMsg(message));
+    io.to(user.room).emit("message", generateMsg(user.username, message));
     callback("Delivered");
   });
 
