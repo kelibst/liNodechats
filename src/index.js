@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
     socket.broadcast
       .to(user.room)
       .emit("message", generateMsg(`${user.username} has joined!`));
-    io.emit("message", generateMsg("Welcome"));
+    socket.emit("message", generateMsg("Welcome"));
   });
 
   socket.on("sendLocation", (data, callback) => {
