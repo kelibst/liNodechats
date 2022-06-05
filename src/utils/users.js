@@ -42,26 +42,11 @@ const removeUser = (id) => {
 
 const getUser = (id) => {
   const user = users.find((usr) => usr.id === id);
-
-  //   if (!user) {
-  //     return {
-  //       error: "That user does not exist!",
-  //     };
-  //   }
-
-  return {
-    user,
-  };
+  return user;
 };
 
 const getUserinRoom = (room) => {
   const romUser = users.filter((usr) => usr.room === room);
-  //   if (!romUser?.length) {
-  //     return {
-  //       error: "There are no users in the room!",
-  //     };
-  //   }
-
   return romUser;
 };
 

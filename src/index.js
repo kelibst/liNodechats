@@ -5,7 +5,7 @@ const cors = require("cors");
 const hbs = require("hbs");
 const socketio = require("socket.io");
 const { generateMsg, generateLoc } = require("./utils/message");
-const { addUser, removeUser } = require("./utils/users");
+const { addUser, removeUser, getUser } = require("./utils/users");
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -44,11 +44,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendLocation", (data, callback) => {
-    io.emit("locationMsg", generateLoc(data));
+    const user = getUser(socket.id);
+    io.to(user.room).emit("locationMsg", generateLoc(data));
     callback();
   });
   socket.on("sendMessage", (message, callback) => {
-    io.emit("message", generateMsg(message));
+    const user = getUser(socket.id);
+    io.to(user.room).emit("message", generateMsg(message));
     callback("Delivered");
   });
 

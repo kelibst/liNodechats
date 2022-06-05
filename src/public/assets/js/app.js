@@ -45,8 +45,10 @@ locGet.addEventListener("click", () => {
   if (!navigator.geolocation) {
     return alert("Geoloaction is not suppoerted by your browser");
   }
+
   navigator.geolocation.getCurrentPosition((position) => {
     locGet.removeAttribute("disabled");
+    console.log("got here");
     socket.emit(
       "sendLocation",
       {
