@@ -5,7 +5,12 @@ const cors = require("cors");
 const hbs = require("hbs");
 const socketio = require("socket.io");
 const { generateMsg, generateLoc } = require("./utils/message");
-const { addUser, removeUser, getUser } = require("./utils/users");
+const {
+  addUser,
+  removeUser,
+  getUser,
+  getUserinRoom,
+} = require("./utils/users");
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -41,6 +46,11 @@ io.on("connection", (socket) => {
       .to(user.room)
       .emit("message", generateMsg(`${user.username} has joined!`));
     socket.emit("message", generateMsg("Welcome"));
+
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUserinRoom(user.room),
+    });
   });
 
   socket.on("sendLocation", (data, callback) => {
@@ -62,6 +72,11 @@ io.on("connection", (socket) => {
         "message",
         generateMsg(user.username + " just left the chat")
       );
+
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUserinRoom(user.room),
+      });
     }
   });
 });

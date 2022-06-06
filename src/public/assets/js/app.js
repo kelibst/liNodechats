@@ -30,6 +30,10 @@ socket.on("message", (data) => {
   $messages.insertAdjacentHTML("beforeend", html);
 });
 
+socket.on("roomData", ({ room, users }) => {
+  console.log(users, room);
+});
+
 msgForm.addEventListener("submit", (e) => {
   e.preventDefault();
   e.target[1].setAttribute("disabled", "disabled");
