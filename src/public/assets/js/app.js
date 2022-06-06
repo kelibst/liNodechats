@@ -6,6 +6,7 @@ const $messages = document.querySelector("#messages");
 // Templates
 const msgTmp = document.querySelector("#msgTmp").innerHTML;
 const locTmp = document.querySelector("#locTmp").innerHTML;
+const sidebarTmp = document.querySelector("#sideMenu").innerHTML;
 
 const { chatname, chatroom } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
@@ -31,7 +32,12 @@ socket.on("message", (data) => {
 });
 
 socket.on("roomData", ({ room, users }) => {
-  console.log(users, room);
+  const html = Mustache.render(sidebarTmp, {
+    room,
+    users,
+  });
+
+  document.querySelector("#sidebar").innerHTML = html;
 });
 
 msgForm.addEventListener("submit", (e) => {

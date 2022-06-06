@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="content">
-      <div class="left"></div>
+      <div id="sidebar" class="left"></div>
       <div class="cot">
         <div id="messages"></div>
 
@@ -26,6 +26,17 @@
           </form>
           <button id="loc">Send Location</button>
         </div>
+
+        <script id="sideMenu" type="text/html">
+          <h2 class="userTitle">{{room}}</h2>
+          <h4 class="userlistTitle">List of users in the chatroom</h4>
+
+          <ul>
+            {{#users}}
+            <li class="userli">{{username}}</li>
+            {{/users}}
+          </ul>
+        </script>
 
         <script id="msgTmp" type="text/html">
           <div class="msgCont">
