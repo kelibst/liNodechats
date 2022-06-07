@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
     });
 
     if (error) {
-      return callback(error);
+      return callback(error, null);
     }
 
     socket.join(user.room);
@@ -51,6 +51,8 @@ io.on("connection", (socket) => {
       room: user.room,
       users: getUserinRoom(user.room),
     });
+
+    callback(null, user);
   });
 
   socket.on("sendLocation", (data, callback) => {
@@ -61,7 +63,7 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", (message, callback) => {
     const user = getUser(socket.id);
     io.to(user.room).emit("message", generateMsg(message, user.username));
-    callback("Delivered");
+    callback(user);
   });
 
   socket.on("disconnect", () => {

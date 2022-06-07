@@ -23,8 +23,11 @@ socket.on("locationMsg", (data) => {
 });
 
 socket.on("message", (data) => {
+  const curUser = JSON.parse(localStorage.getItem("user"));
+
+  let curUsername = curUser.username === data.username ? "Me" : data.username;
   const html = Mustache.render(msgTmp, {
-    username: data.username,
+    username: curUsername,
     message: data.text,
     createdAt: moment(data.createdAt).format("hh:mm a"),
   });
@@ -44,11 +47,10 @@ msgForm.addEventListener("submit", (e) => {
   e.preventDefault();
   e.target[1].setAttribute("disabled", "disabled");
   const message = e.target[0].value;
-  socket.emit("sendMessage", message, (res) => {
+  socket.emit("sendMessage", message, (receiver) => {
     e.target[1].removeAttribute("disabled");
     e.target[0].value = "";
     e.target[0].focus();
-    console.log("The message was delivered!", res);
   });
 });
 
@@ -60,7 +62,6 @@ locGet.addEventListener("click", () => {
 
   navigator.geolocation.getCurrentPosition((position) => {
     locGet.removeAttribute("disabled");
-    console.log("got here");
     socket.emit(
       "sendLocation",
       {
@@ -74,7 +75,11 @@ locGet.addEventListener("click", () => {
   });
 });
 
-socket.emit("join", { chatname, chatroom }, (error) => {
-  alert(error);
-  location.href = "/";
+socket.emit("join", { chatname, chatroom }, (error, user) => {
+  if (error) {
+    alert(error);
+    return (location.href = "/");
+  }
+
+  localStorage.setItem("user", JSON.stringify(user));
 });
