@@ -73,20 +73,19 @@ input:focus {
 }
 
 .formContainer {
-  display: flex;
+  display: inline-flex;
   position: absolute;
   bottom: 10px;
-  width: 100%;
 }
 
-form#msgForm {
+/* form#msgForm {
   min-width: 80%;
-}
+} */
 
-input#msg {
+/* input#msg {
   margin-bottom: 0;
   width: 80%;
-}
+} */
 
 button {
   background-color: rgb(28, 0, 155);
