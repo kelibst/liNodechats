@@ -39,8 +39,8 @@
                 class="userlink"
                 target="_blank"
                 rel="noopener noreferrer"
-                >{{username}}</a
-              >
+                >{{username}} <span class="online"></span
+              ></a>
             </li>
             {{/users}}
           </ul>
@@ -48,10 +48,11 @@
 
         <script id="msgTmp" type="text/html">
           <div class="msgCont">
-            <p class="username">
-              {{username}}: <span class="createdAt">{{createdAt}}: </span>
-            </p>
-            <p>{{message}}</p>
+            <div class="username">
+              <div class="userHeader">{{username}}</div>
+              <p class="createdAt">{{createdAt}}</p>
+            </div>
+            <p class="msg">{{message}}</p>
           </div>
         </script>
 

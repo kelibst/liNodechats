@@ -13,9 +13,12 @@ const { chatname, chatroom } = Qs.parse(location.search, {
 });
 
 socket.on("locationMsg", (data) => {
+  const curUser = JSON.parse(localStorage.getItem("user"));
+
+  let curUsername = curUser.username === data.username ? "Me" : data.username;
   const url = `https://google.com/maps?q=${data.cordinate.latitude},${data.cordinate.longitude}`;
   const html = Mustache.render(locTmp, {
-    username: data.username,
+    username: curUsername,
     url: url,
     createdAt: moment(data.createdAt).format("hh:mm a"),
   });
